@@ -7,14 +7,15 @@ Program Details: <Program Description Here>
 mod ui;
 mod utils;
 
-use crate::ui::grid::draw_grid;
+//use crate::ui::grid::draw_grid;
 use crate::ui::label::Label;
 use crate::ui::still_image::StillImage;
 use crate::ui::text_button::TextButton;
 use macroquad::prelude::*;
 use crate::utils::preload_image::TextureManager;
 use crate::utils::preload_image::LoadingScreenOptions; // If you want to customize the loading screen
-use crate::utils::preload_image::GifLoadingScreenInfo; // If you want to add animated GIFs to loading screen
+use crate::utils::preload_image::GifLoadingScreenInfo;
+use crate::utils::scale::use_virtual_resolution; // If you want to add animated GIFs to loading screen
 /// Set up window settings before the app runs
 fn window_conf() -> Conf {
     Conf {
@@ -49,8 +50,8 @@ async fn main() {
     let mut btn_name = TextButton::new(300.0, 600.0, 200.0, 60.0, "Name", WHITE, RED, 30);
     let mut btn_sport = TextButton::new(550.0, 600.0, 200.0, 60.0, "Sport", WHITE, RED, 30);
     let mut btn_age = TextButton::new(800.0, 600.0, 200.0, 60.0, "Age", WHITE, RED, 30);
-    let mut btn_exit = TextButton::new(1050.0, 600.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
-    let mut btn_hello = TextButton::new(1300.0, 600.0, 200.0, 60.0, "Hello", WHITE, RED, 30);
+    let mut btn_exit = TextButton::new(1300.0, 600.0, 200.0, 60.0, "Exit", WHITE, RED, 30);
+    let mut btn_hello = TextButton::new(1050.0, 600.0, 200.0, 60.0, "Hello", WHITE, RED, 30);
     btn_name.with_text_color(BLACK); // Sets the normal text color
     btn_name.with_hover_text_color(WHITE);
     btn_sport.with_text_color(BLACK); // Sets the normal text color
@@ -67,6 +68,7 @@ async fn main() {
     loop {
         clear_background(WHITE);
         //draw_grid(50.0, BROWN);
+        use_virtual_resolution(1024.0, 768.0);
         if btn_name.click() {
             lbl_text.set_text("Aum markandey");
             img.set_preload(texture_manager.get_preload("assets/name.png").unwrap());
